@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Letter From My Heart</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--pink:#fbd3dc;--ink:#4a2c1d;--rose:#e8607f;--cream:#fdf3e2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--pink);font-family:"Patrick Hand","Segoe Print","Comic Sans MS",cursive,sans-serif;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 20% 10%,#fde6ec,transparent 55%),radial-gradient(circle at 80% 90%,#f8c3d0,transparent 55%),var(--pink)}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+/* Stage 1: envelope */
+#stage{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;background:var(--pink);z-index:5;transition:opacity .7s}
+#stage.out{opacity:0}
+.envbtn{background:none;border:0;padding:0}
+.env{position:relative;width:min(80vw,330px);aspect-ratio:3/2;background:#fbeed8;border-radius:8px;box-shadow:0 14px 30px rgba(190,90,120,.25)}
+.card{position:absolute;left:8%;right:8%;top:8%;bottom:8%;background:var(--cream);border-radius:4px;z-index:1;transition:transform .9s .5s;background-image:repeating-linear-gradient(transparent 0 15px,rgba(150,120,100,.25) 15px 16px)}
+.front{position:absolute;inset:0;z-index:2;background:#f4dcc0;clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);border-radius:8px}
+.flap{position:absolute;left:0;right:0;top:0;height:60%;background:#f0d4b3;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;z-index:3;transition:transform .8s,z-index 0s .4s}
+.seal{position:absolute;left:50%;top:58%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;z-index:4;background:radial-gradient(circle at 35% 30%,#e5384f,#a8132a);box-shadow:0 3px 8px rgba(100,0,20,.45);display:grid;place-items:center;color:#ffd9de;font-size:24px;transition:transform .4s,opacity .4s}
+.open .flap{transform:rotateX(180deg);z-index:0}
+.open .seal{transform:scale(1.6);opacity:0}
+.open .card{transform:translateY(-45%)}
+.hint{color:rgba(150,50,85,.6);letter-spacing:.22em;font-size:15px;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+/* Stage 2: letter */
+#letter{display:none;position:relative;overflow:hidden;min-height:100vh;min-height:100dvh;padding:28px 0 36px}
+#letter.show{display:block;animation:fade 1s}
+@keyframes fade{from{opacity:0}}
+h1{position:relative;z-index:2;margin:0 0 18px;text-align:center;font-family:"Dancing Script",cursive;font-weight:700;font-size:clamp(30px,9vw,44px);color:var(--rose);line-height:1.1;padding:0 18px}
+h1::after{content:"";display:block;width:52%;height:3px;margin:6px auto 0;background:var(--rose);border-radius:3px;opacity:.8}
+.paper{position:relative;z-index:2;width:90%;max-width:540px;margin:0 auto;background-color:var(--cream);padding:22px 20px 0;border-radius:6px;box-shadow:0 8px 24px rgba(190,90,120,.25);transform:rotate(-.3deg);
+ background-image:repeating-linear-gradient(transparent 0 31px,rgba(150,120,100,.28) 31px 32px);background-position:0 22px}
+.paper p{margin:0 0 32px;font-size:19px;line-height:32px;color:var(--ink);overflow-wrap:break-word}
+.paper .gr{font-size:21px}
+.foot{position:relative;z-index:2;width:90%;max-width:540px;margin:26px auto 0;display:flex;align-items:center;gap:12px}
+.cat{flex:0 0 76px;width:76px;height:auto}
+#more{flex:1;min-height:56px;padding:12px 14px;border-radius:30px;border:2px solid rgba(255,255,255,.9);background:rgba(236,110,140,.6);color:#fff;font-size:16px;letter-spacing:.08em;text-shadow:0 1px 2px rgba(120,20,50,.5);backdrop-filter:blur(3px)}
+#more:active{transform:scale(.97)}
+.br{position:absolute;z-index:1;pointer-events:none;height:auto}
+.d1{top:-4px;right:-16px;width:150px}
+.d2{left:-30px;top:24%;width:110px;transform:scaleX(-1)}
+.d3{right:-30px;top:52%;width:110px}
+.d4{left:-28px;top:76%;width:100px;transform:scaleX(-1)}
+.hs{position:absolute;z-index:1;color:#ee7b97;pointer-events:none}
+
+/* Stage 3 */
+#finale{position:fixed;inset:0;background:#000;z-index:20;opacity:0;visibility:hidden;transition:opacity 1s}
+#finale.on{opacity:1;visibility:visible}
+#cv{display:block;width:100%;height:100%}
+#back{position:absolute;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:none;border:1px solid rgba(255,80,100,.5);color:rgba(255,110,125,.75);border-radius:20px;padding:8px 18px;font-size:14px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="fl" viewBox="0 0 40 40"><g fill="#fac9d6" stroke="#ee94ab" stroke-width=".8"><ellipse cx="20" cy="9" rx="7" ry="9"/><ellipse cx="20" cy="9" rx="7" ry="9" transform="rotate(72 20 20)"/><ellipse cx="20" cy="9" rx="7" ry="9" transform="rotate(144 20 20)"/><ellipse cx="20" cy="9" rx="7" ry="9" transform="rotate(216 20 20)"/><ellipse cx="20" cy="9" rx="7" ry="9" transform="rotate(288 20 20)"/></g><circle cx="20" cy="20" r="4" fill="#e0557a"/><circle cx="20" cy="20" r="1.6" fill="#ffd36e"/></symbol>
+<g id="br"><path d="M120 0C85 28 62 70 30 150" stroke="#8a5a44" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M75 40C60 50 45 55 28 52" stroke="#8a5a44" stroke-width="2" fill="none"/><use href="#fl" x="50" y="8" width="46" height="46"/><use href="#fl" x="4" y="34" width="38" height="38"/><use href="#fl" x="12" y="104" width="42" height="42"/></g>
+</defs></svg>
+
+<div id="stage">
+  <button class="envbtn" id="env" aria-label="Open the letter">
+    <div class="env" id="envBox"><div class="card"></div><div class="front"></div><div class="flap"></div><div class="seal">♥</div></div>
+  </button>
+  <div class="hint">CLICK TO OPEN</div>
+</div>
+
+<main id="letter">
+  <svg class="br d1" viewBox="0 0 120 160"><use href="#br"/></svg>
+  <svg class="br d2" viewBox="0 0 120 160"><use href="#br"/></svg>
+  <svg class="br d3" viewBox="0 0 120 160"><use href="#br"/></svg>
+  <svg class="br d4" viewBox="0 0 120 160"><use href="#br"/></svg>
+  <span class="hs" style="left:10%;top:8px;font-size:20px">♡</span>
+  <span class="hs" style="right:30%;top:2px;font-size:16px">♡</span>
+  <span class="hs" style="right:5%;top:40%;font-size:18px">♡</span>
+  <span class="hs" style="left:4%;top:62%;font-size:18px">♡</span>
+
+  <h1>A Letter From My Heart</h1>
+  <article class="paper">
+    <p class="gr">¡Feliz cumpleaños, mi amor! ❤️✨</p>
+    <p>Mi mayor deseo para ti en este nuevo año de vida es que cada uno de tus días sea aún mejor, más brillante y más feliz que el anterior. Eres una persona súper enfocada, trabajadora y talentosa, y no tengo ninguna duda de que vas a lograr todo lo que te propongas en la universidad, en tu trabajo y en la vida. Que este año te traiga mucha fuerza, salud (¡cuida mucho ese brazo! 😉) y la motivación para seguir creciendo cada día más. Te mereces solo lo mejor del mundo porque tienes un gran corazón y una mente brillante.</p>
+    <p>Quiero que sepas lo mucho que te amo y lo importante que eres para mí. Mi gran deseo hoy es que tus hermosos ojos siempre brillen de felicidad y que nunca, nunca estén tristes.</p>
+    <p>Pase lo que pase, quiero que recuerdes siempre que estaré increíblemente orgullosa de ti, sin importar si ganas o si pierdes, porque para mí ya eres el mejor. Espero que pases un día espectacular, que disfrutes cada segundo y comas mucho pastel. Y bueno, como eres tan guapo, tan increíble y el cumpleañero más lindo, si te tuviera aquí al lado ahora mismo, ¡te abrazaría tan pero tan fuerte que no podrías ni respirar! 🥰</p>
+    <p>Disfruta tu día al máximo, bby. ¡Te amo con toda mi alma! 🔒🤍</p>
+    <p>P.D. Todo lo que te desearon hoy y lo que todavía te van a desear, lo multiplico por cien.</p>
+  </article>
+  <div class="foot">
+    <svg class="cat" viewBox="0 0 80 70" aria-hidden="true">
+      <path d="M12 26l3-16 12 9zM46 24l6-14 11 11z" fill="#e0b48c" stroke="#7a5238" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="26" cy="36" r="17" fill="#e8c29c" stroke="#7a5238" stroke-width="1.5"/>
+      <path d="M40 22l4-14 12 8zM62 24l8-12 4 15z" fill="#fff3e6" stroke="#7a5238" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="52" cy="36" r="17" fill="#fff3e6" stroke="#7a5238" stroke-width="1.5"/>
+      <path d="M17 36q3 3 6 0M31 36q3 3 6 0M44 35q3 3 6 0M56 35q3 3 6 0" stroke="#5a3a28" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <circle cx="16" cy="42" r="3" fill="#f6a1b3" opacity=".7"/><circle cx="63" cy="41" r="3" fill="#f6a1b3" opacity=".7"/>
+      <path d="M40 66C20 52 24 40 34 42c4 1 6 4 6 6 0-2 2-5 6-6 10-2 14 10-6 24z" fill="#e8364f" stroke="#a8132a" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+    <button id="more">CLICK FOR ONE MORE SURPRISE</button>
+  </div>
+</main>
+
+<section id="finale" aria-label="Te amo"><canvas id="cv"></canvas><button id="back">↺</button></section>
+
+<script>
+const $=s=>document.querySelector(s);
+$('#env').addEventListener('click',()=>{
+  if($('#envBox').classList.contains('open'))return;
+  $('#envBox').classList.add('open');
+  setTimeout(()=>$('#stage').classList.add('out'),1900);
+  setTimeout(()=>{$('#stage').style.display='none';$('#letter').classList.add('show');window.scrollTo(0,0)},2600);
+});
+
+const PH=["Je t’aime","Ich liebe dich","Ti amo","사랑해","我爱你","Te quiero","Σ’ αγαπώ","Kocham cię","Я тебе кохаю","Я тебя люблю","Seni seviyorum","Ik hou van je","Volim te","Miluji tě","Jag älskar dig","Aku cinta kamu","T’estimo","Mahal kita","愛してる","أحبك","אני אוהב אותך","मुझे तुमसे प्यार है","รักเธอ","Szeretlek","Rakastan sinua","Jeg elsker deg","Ég elska þig","Te iubesc","Të dua","Es tevi mīlu","Aš tave myliu","Mina armastan sind","Nakupenda","Ngiyakuthanda","Anh yêu em","I love you","Amore","Te amo","Maite zaitut","Ljubim te","Σε αγαπώ","Mi amas vin"];
+const cv=$('#cv'),ctx=cv.getContext('2d');let items=[],raf=0,t0=0,W,H,S,CX,CY;
+const FF='"Dancing Script","Noto Sans",system-ui,sans-serif';
+const inside=(x,y)=>Math.pow(x*x+y*y-1,3)-x*x*Math.pow(y,3)<=0;
+function build(){
+  const d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);
+  S=Math.min(W*.41,H*.34);CX=W/2;CY=H*.47;items=[];const rects=[];
+  const toXY=(px,py)=>[(px-CX)/S,(CY-py)/S+.12];
+  const ok=(px,py,w,h)=>{
+    const l=px-w/2,r=px+w/2,t=py-h/2,b=py+h/2;
+    for(const[x,y]of[[l,t],[r,t],[l,b],[r,b],[px,t],[px,b],[l,py],[r,py]]){const[a,c]=toXY(x,y);if(!inside(a*1.04,c*1.04))return false}
+    for(const q of rects)if(l<q[2]+4&&r>q[0]-4&&t<q[3]+3&&b>q[1]-3)return false;
+    rects.push([l,t,r,b]);return true};
+  const place=(txt,size,px,py,kind,glyph)=>{ctx.font=(kind?'700 ':'')+size+'px '+FF;const w=ctx.measureText(txt).width,h=size*1.15;
+    if(!ok(px,py,w,h))return false;
+    const dist=Math.hypot(px-CX,py-CY)/S;items.push({txt,size,px,py,kind,d:kind==2?0:300+dist*1800+Math.random()*500});return true};
+  place('Te amo',S*.44,CX,CY-S*.12,2);
+  let i=0;for(let n=0;n<5000&&i<130;n++){
+    const px=CX+(Math.random()*2.5-1.25)*S,py=CY+(Math.random()*2.5-1.1)*S;
+    if(place(PH[Math.floor(Math.random()*PH.length)],S*.1*(.62+Math.random()*.7),px,py,0))i++}
+  for(let n=0;n<1500;n++){const px=CX+(Math.random()*2.5-1.25)*S,py=CY+(Math.random()*2.5-1.1)*S;place('♥',S*.07*(.6+Math.random()*.6),px,py,1)}
+}
+function draw(now){
+  const t=now-t0;ctx.clearRect(0,0,W,H);
+  const k=1+(t>3500?.014*Math.sin(t*.004):0);
+  ctx.save();ctx.translate(CX,CY);ctx.scale(k,k);ctx.translate(-CX,-CY);
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  for(const it of items){const a=Math.min(Math.max((t-it.d)/700,0),1);if(!a)continue;
+    ctx.globalAlpha=a;ctx.font=(it.kind==2?'700 ':'')+it.size+'px '+FF;
+    ctx.fillStyle=it.kind==2?'#ff3350':'#ff4d63';ctx.shadowColor='#ff1f3d';ctx.shadowBlur=it.kind==2?22:9;
+    ctx.fillText(it.txt,it.px,it.py)}
+  ctx.restore();raf=requestAnimationFrame(draw)}
+function start(){cancelAnimationFrame(raf);build();t0=performance.now();raf=requestAnimationFrame(draw)}
+$('#more').addEventListener('click',()=>{
+  $('#finale').classList.add('on');
+  (document.fonts?document.fonts.load('700 20px "Dancing Script"'):Promise.resolve()).catch(()=>{}).then(start)});
+$('#back').addEventListener('click',()=>{$('#finale').classList.remove('on');cancelAnimationFrame(raf)});
+addEventListener('resize',()=>{if($('#finale').classList.contains('on'))start()});
+</script>
+</body>
+</html>
